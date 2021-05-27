@@ -3,24 +3,33 @@ import io
 import math
 import strconv
 
-fn main() {
+fn calc_fuel(mod i64) i64 {
+	req := i64(math.floor(mod / 3) - 2)
 
-	data := os.open("data/1.txt") or { 
+	if req > 0 {
+		return req + calc_fuel(req)
+	}
+
+	return 0
+}
+
+fn main() {
+	data := os.open('data/1.txt') or {
 		println("Couldn't Open Data File")
 		return
 	}
 
-	mut total := u32(0)
-	
-	mut buffer := io.new_buffered_reader({
+	mut buffer := io.new_buffered_reader(
 		reader: data
-	})
+	)
+
+	mut total := i64(0)
 
 	for {
 		line := buffer.read_line() or { break }
-		parsed := strconv.parse_uint(line, 10, 32)
-		total += u32(math.floor(parsed / 3) - 2)
+		parsed := i64(strconv.parse_int(line, 10, 64))
+		total += calc_fuel(parsed)
 	}
 
-	println("Result: $total")
+	println('Result: $total')
 }
