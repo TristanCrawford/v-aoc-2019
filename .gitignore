@@ -1,0 +1,9 @@
+# Problem Inputs
+data/
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.so
+*.dylib
+*.dll
